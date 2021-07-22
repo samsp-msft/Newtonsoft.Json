@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore "src/Newtonsoft.Json.sln"
+      run: dotnet restore "Src/Newtonsoft.Json.sln"
     - name: Build
-      run: dotnet build --no-restore "src/Newtonsoft.Json.sln"
+      run: dotnet build --no-restore "Src/Newtonsoft.Json.sln"
     - name: Test
-      run: dotnet test --no-build --verbosity normal "src/Newtonsoft.Json.sln"
+      run: dotnet test --no-build --verbosity normal "Src/Newtonsoft.Json.sln"
