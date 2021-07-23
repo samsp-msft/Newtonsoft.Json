@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore "Src/Newtonsoft.Json.sln"
     - name: Build
-      run: dotnet build --no-restore "Src/Newtonsoft.Json.sln"
+      run: dotnet build --no-restore -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" "Src/Newtonsoft.Json.sln"
     - name: Test
-      run: dotnet test --no-build --verbosity normal "Src/Newtonsoft.Json.sln"
+      run: dotnet test --no-build -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" --verbosity normal "Src/Newtonsoft.Json.sln"
