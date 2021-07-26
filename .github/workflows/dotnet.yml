@@ -24,7 +24,7 @@ jobs:
       run: nuget restore ${{ env.SOLUTION }}
 
     - name: Build
-      run: dotnet build --no-restore -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" ${{ env.SOLUTION }}
+      run: msbuild /p:Configuration=Release ${{ env.SOLUTION }}
 
 #    - name: Test
 #      run: dotnet test --no-build -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" --verbosity normal ${{ env.SOLUTION }}
