@@ -8,6 +8,7 @@ on:
 
 env:
   SOLUTION: "Src/Newtonsoft.Json.sln"
+  NUNIT_VERSION: 3.8.0
 
 jobs:
   build:
@@ -26,5 +27,8 @@ jobs:
     - name: Build
       run: msbuild /p:Configuration=Release ${{ env.SOLUTION }}
 
-#    - name: Test
-#      run: dotnet test --no-build -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" --verbosity normal ${{ env.SOLUTION }}
+    - name: Test
+      run: dotnet test Src\Newtonsoft.Json.sln -c Release -l trx --no-restore --no-build
+
+    - name: Restore nunit
+      run: nuget install NUnit.ConsoleRunner -Version ${{ env.NUNIT_VERSION }} -ConfigFile "Src\nuget.config"
