@@ -6,20 +6,25 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  SOLUTION: "Src/Newtonsoft.Json.sln"
+
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore "Src/Newtonsoft.Json.sln"
+    
+    - name: Setup MSBuild
+      uses: amicrosoft/setup-msbuild@1.0.2
+
+    - name: Restore NuGet Packages
+      run: nuget restore ${{ env.SOLUTION }}
+
     - name: Build
-      run: dotnet build --no-restore -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" "Src/Newtonsoft.Json.sln"
-    - name: Test
-      run: dotnet test --no-build -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" --verbosity normal "Src/Newtonsoft.Json.sln"
+      run: dotnet build --no-restore -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" ${{ env.SOLUTION }}
+
+#    - name: Test
+#      run: dotnet test --no-build -p:TargetFrameworks="netstandard1.0;netstandard1.3;netstandard2.0" --verbosity normal ${{ env.SOLUTION }}
